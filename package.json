@@ -1,0 +1,22 @@
+{
+  "name": "challange7david",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "fine-uploader": "^5.16.2",
+    "fs": "^0.0.1-security",
+    "http-errors": "~1.6.3",
+    "mkdirp": "^1.0.4",
+    "morgan": "~1.9.1",
+    "multiparty": "^4.2.3",
+    "rimraf": "^3.0.2",
+    "wget": "^0.0.1"
+  }
+}
