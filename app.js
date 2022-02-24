@@ -10,9 +10,10 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './', 'views'));
+app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
-
+app.use("fine-uploader",express.static('fine-uploader'));
 // app.use(logger('dev'));
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
@@ -41,10 +42,10 @@ app.set('view engine', 'ejs');
 // module.exports = app;
 
 app.use("/", (req, res) => {
-  res.render("manupload.ejs");
+  res.render("index.ejs");
 
 });
 
-var port = 8000;
+var port = 8001;
 app.listen(port)
 console.log("app.js is using port "+ port);
