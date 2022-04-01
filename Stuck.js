@@ -23,27 +23,29 @@ var express = require("express"),
     multiparty = require('multiparty'),
     app = express(),
     path = require('path')
-    // paths/constants
-    fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
+// paths/constants
+fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     publicDir = process.env.PUBLIC_DIR,
     nodeModulesDir = process.env.NODE_MODULES_DIR,
     uploadedFilesPath = process.env.UPLOADED_FILES_DIR,
     chunkDirName = "chunks",
     // port = process.env.SERVER_PORT || 8000,
-        port = 8000,
+    port = 8000,
     maxFileSize = process.env.MAX_FILE_SIZE || 0; // in bytes, 0 for unlimited
 
 app.use(express.static(__dirname));
-app.listen(port);
-app.set('views', path.join(__dirname, './', 'views'));
-app.engine('ejs', require('ejs').renderFile)
-app.set('view engine', 'ejs');
-app.use("scripts",express.static('scripts'));
+app.use(express.static(__dirname + '/scripts'));
 
+app.listen(port);
+// app.set('views', path.join(__dirname, './', 'views'));
+// app.engine('ejs', require('ejs').renderFile)
+// app.set('view engine', 'ejs');
+// app.use("scripts",express.static('scripts'));
+console.log(__dirname)
 // routes
 // app.use(express.static(__dirname + '/views'));
 
-app.post("/uploads", onUpload);
+app.post('/scripts/uploads', onUpload);
 app.delete("/uploads/:uuid", onDeleteFile);
 
 
@@ -55,7 +57,7 @@ app.get('/',function(req,res) {
 });
 
 // app.get('/', function(req, res) {
-//     res.sendFile(path.join(__dirname, '/index.html'));
+//     res.sendFile(path.join(__dirname, '/index0.html'));
 // });
 
 
