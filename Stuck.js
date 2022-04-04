@@ -32,7 +32,8 @@ fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     // port = process.env.SERVER_PORT || 8000,
     port = 8000,
     maxFileSize = process.env.MAX_FILE_SIZE || 0; // in bytes, 0 for unlimited
-
+// app.use(express.static(publicDir));
+// app.use("/node_modules", express.static(nodeModulesDir));
 app.use(express.static(__dirname));
 app.use(express.static(__dirname + '/scripts'));
 
@@ -45,7 +46,7 @@ console.log(__dirname)
 // routes
 // app.use(express.static(__dirname + '/views'));
 
-app.post('/scripts/uploads', onUpload);
+app.post('/uploads', onUpload);
 app.delete("/uploads/:uuid", onDeleteFile);
 
 
