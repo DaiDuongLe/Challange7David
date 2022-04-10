@@ -27,7 +27,8 @@ var express = require("express"),
 fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     publicDir = process.env.PUBLIC_DIR,
     nodeModulesDir = process.env.NODE_MODULES_DIR,
-    uploadedFilesPath = process.env.UPLOADED_FILES_DIR,
+    // uploadedFilesPath = process.env.UPLOADED_FILES_DIR,
+    uploadedFilesPath = "/Users/imac08/IdeaProjects/Challange7David/uploadFiles",
     chunkDirName = "chunks",
     // port = process.env.SERVER_PORT || 8000,
     port = 8000,
@@ -35,9 +36,16 @@ fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
 // app.use(express.static(publicDir));
 // app.use("/node_modules", express.static(nodeModulesDir));
 app.use(express.static(__dirname));
-app.use(express.static(__dirname + '/scripts'));
+
 
 app.listen(port);
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 // app.set('views', path.join(__dirname, './', 'views'));
 // app.engine('ejs', require('ejs').renderFile)
 // app.set('view engine', 'ejs');
@@ -46,16 +54,19 @@ console.log(__dirname)
 // routes
 // app.use(express.static(__dirname + '/views'));
 
-app.post('/uploads', onUpload);
-app.delete("/uploads/:uuid", onDeleteFile);
 
 
 //
 app.get('/',function(req,res) {
-    res.render('index.ejs');
+    res.render('test1.ejs');
     // res.sendFile("/Users/imac08/IdeaProjects/Challange7David/views/manupload.html")
 
 });
+// app.get('/server/upload', onUpload, function (req, res) {
+//     res.json({ success: 'True' })
+// });
+app.post('/uploadFiles', onUpload);
+app.delete("/uploads/:uuid", onDeleteFile);
 
 // app.get('/', function(req, res) {
 //     res.sendFile(path.join(__dirname, '/index0.html'));
@@ -63,7 +74,6 @@ app.get('/',function(req,res) {
 
 
 console.log('Server started at http://localhost:' + port);
-
 
 function onUpload(req, res) {
     var form = new multiparty.Form();
@@ -196,14 +206,16 @@ function moveFile(destinationDir, sourceFile, destinationFile, success, failure)
 }
 
 function moveUploadedFile(file, uuid, success, failure) {
-    var destinationDir = uploadedFilesPath + uuid + "/",
+    // var destinationDir = uploadedFilesPath + uuid + "/",
+    var destinationDir = uploadedFilesPath + "/"
         fileDestination = destinationDir + file.name;
 
     moveFile(destinationDir, file.path, fileDestination, success, failure);
 }
 
 function storeChunk(file, uuid, index, numChunks, success, failure) {
-    var destinationDir = uploadedFilesPath + uuid + "/" + chunkDirName + "/",
+    // var destinationDir = uploadedFilesPath + uuid + "/" + chunkDirName + "/",
+    var destinationDir = uploadedFilesPath + "/" + chunkDirName + "/"
         chunkFilename = getChunkFilename(index, numChunks),
         fileDestination = destinationDir + chunkFilename;
 

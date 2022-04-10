@@ -69,7 +69,7 @@
 }
 .qq-upload-spinner {
     display: inline-block;
-    background: url("loading.gif");
+    background: url("placeholders/loading.gif");
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;
@@ -178,7 +178,7 @@ INPUT.qq-edit-filename.qq-editing {
 
 .qq-edit-filename-icon {
     display: none;
-    background: url("edit.gif");
+    background: url("templates/edit.gif");
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;
