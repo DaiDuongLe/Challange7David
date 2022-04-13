@@ -27,8 +27,8 @@ var express = require("express"),
 fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     publicDir = process.env.PUBLIC_DIR,
     nodeModulesDir = process.env.NODE_MODULES_DIR,
-    // uploadedFilesPath = process.env.UPLOADED_FILES_DIR,
-    uploadedFilesPath = "/Users/imac08/IdeaProjects/Challange7David/uploadFiles",
+    uploadedFilesPath = process.env.PWD + "/uploadFiles",
+    // uploadedFilesPath = "/Users/imac08/IdeaProjects/Challange7David/uploadFiles",
     chunkDirName = "chunks",
     // port = process.env.SERVER_PORT || 8000,
     port = 8000,
@@ -58,7 +58,7 @@ console.log(__dirname)
 
 //
 app.get('/',function(req,res) {
-    res.render('test1.ejs');
+    res.render('index.ejs');
     // res.sendFile("/Users/imac08/IdeaProjects/Challange7David/views/manupload.html")
 
 });
@@ -162,7 +162,8 @@ function failWithTooBigFile(responseData, res) {
 
 function onDeleteFile(req, res) {
     var uuid = req.params.uuid,
-        dirToDelete = uploadedFilesPath + uuid;
+        // dirToDelete = uploadedFilesPath + uuid;
+        dirToDelete = uploadedFilesPath;
 
     rimraf(dirToDelete, function(error) {
         if (error) {
