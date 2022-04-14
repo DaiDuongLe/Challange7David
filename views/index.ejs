@@ -32,6 +32,9 @@
           <i class="icon-upload icon-white"></i> Upload
         </button>
       </div>
+      <div>
+        <button type="button" id="clear-upload" class="btn btn-primary">Clear</button>
+      </div>
       <span class="qq-drop-processing-selector qq-drop-processing">
                 <span>Processing dropped files...</span>
                 <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
@@ -130,11 +133,22 @@
       endpoint: '/uploadFiles'
     },
     autoUpload: false,
-    debug: true
+    debug: true,
+
   });
 
   qq(document.getElementById("trigger-upload")).attach("click", function() {
     manualUploader.uploadStoredFiles();
+
+  });
+  qq(document.getElementById("clear-upload")).attach("click", function() {
+    manualUploader.clearStoredFiles();
+
+  });
+  qq(document.getElementById("delete-upload")).attach("click", function() {
+    manualUploader.deleteFile(id);
+
+
   });
 </script>
 </body>
