@@ -22,12 +22,15 @@ var express = require("express"),
     mkdirp = require("mkdirp"),
     multiparty = require('multiparty'),
     app = express(),
-    path = require('path')
+    path = require('path'),
+    bodyParser = require('body-parser'),
+
 // paths/constants
 fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     publicDir = process.env.PUBLIC_DIR,
     nodeModulesDir = process.env.NODE_MODULES_DIR,
-    uploadedFilesPath = process.env.PWD + "/uploadFiles",
+    // uploadedFilesPath = process.env.PWD + "/uploadFiles",
+    uploadedFilesPath = process.env.UPLOADED_FILES_DIR,
     // uploadedFilesPath = "/Users/imac08/IdeaProjects/Challange7David/uploadFiles",
     chunkDirName = "chunks",
     // port = process.env.SERVER_PORT || 8000,
@@ -36,6 +39,22 @@ fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
 // app.use(express.static(publicDir));
 // app.use("/node_modules", express.static(nodeModulesDir));
 app.use(express.static(__dirname));
+console.log(process.env.FILE_INPUT_NAME)
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+    host: "10.11.90.15",
+    user: "AppUser",
+    password: "Special888%",
+    database: "Study"
+});
+// const moveFile = require('@npmcli/move-file');
+//
+// (async () => {
+//     await moveFile('source/unicorn.png', 'destination/unicorn.png');
+//     console.log('The file has been moved');
+// })();
+
 
 
 app.listen(port);
@@ -74,6 +93,20 @@ app.delete("/uploads/:uuid", onDeleteFile);
 
 
 console.log('Server started at http://localhost:' + port);
+
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+    // while (true) {
+    //
+    // }
+    var querystatement = "INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES ('1', 'Company Inc', 'Highway 37')";
+    con.query(querystatement, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+    });
 
 function onUpload(req, res) {
     var form = new multiparty.Form();
@@ -207,16 +240,16 @@ function moveFile(destinationDir, sourceFile, destinationFile, success, failure)
 }
 
 function moveUploadedFile(file, uuid, success, failure) {
-    // var destinationDir = uploadedFilesPath + uuid + "/",
-    var destinationDir = uploadedFilesPath + "/"
+    var destinationDir = uploadedFilesPath + uuid + "/",
+    // var destinationDir = uploadedFilesPath + "/"
         fileDestination = destinationDir + file.name;
 
     moveFile(destinationDir, file.path, fileDestination, success, failure);
 }
 
 function storeChunk(file, uuid, index, numChunks, success, failure) {
-    // var destinationDir = uploadedFilesPath + uuid + "/" + chunkDirName + "/",
-    var destinationDir = uploadedFilesPath + "/" + chunkDirName + "/"
+    var destinationDir = uploadedFilesPath + uuid + "/" + chunkDirName + "/",
+    // var destinationDir = uploadedFilesPath + "/" + chunkDirName + "/"
         chunkFilename = getChunkFilename(index, numChunks),
         fileDestination = destinationDir + chunkFilename;
 

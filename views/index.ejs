@@ -12,7 +12,8 @@
   <!-- Fine Uploader JS file
   ====================================================================== -->
   <script src="/node_modules/fine-uploader/fine-uploader/fine-uploader.js"></script>
-
+  <!--jQuery-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- Fine Uploader Thumbnails template w/ customization
   ====================================================================== -->
   <script type="text/template" id="qq-template-manual-trigger">
@@ -112,6 +113,16 @@
 ====================================================================== -->
 <div id="fine-uploader-manual-trigger"></div>
 
+<form>
+  <label for="fname">First Name:</label>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Last Name:</label>
+  <input type="text" id="lname" name="lname"><br>
+  <label for="age">Age:</label>
+  <input type="text" id="age" name="age"><br>
+</form>
+
+
 <!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
 ====================================================================== -->
 <script>
@@ -150,6 +161,12 @@
 
 
   });
+</script>
+<!--MySQL-->
+<script>
+  $(document).ready(function() {
+    $
+  })
 </script>
 </body>
 </html>
