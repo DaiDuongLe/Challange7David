@@ -102,11 +102,27 @@ con.connect(function(err) {
     // while (true) {
     //
     // }
-    var querystatement = "INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES ('1', 'Company Inc', 'Highway 37')";
+app.post("/form", function(req, res) {
+    var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES("1",  "'+ req.body.fname + ')';
     con.query(querystatement, function (err, result) {
-        if (err) throw err;
-        console.log("1 record inserted");
+        if (err) {
+            res.json({
+            msg:"Error inserting"
+            });
+        } else {
+            res.json({
+                msg:"success"
+            });
+            console.log("Record Inserted Successfully")
+        }
+
     });
+});
+// var querystatement = "INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES ('1', 'Company Inc', 'Highway 37')";
+//     con.query(querystatement, function (err, result) {
+//         if (err) throw err;
+//         console.log("1 record inserted");
+//     });
 
 function onUpload(req, res) {
     var form = new multiparty.Form();

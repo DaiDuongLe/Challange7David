@@ -113,14 +113,17 @@
 ====================================================================== -->
 <div id="fine-uploader-manual-trigger"></div>
 
-<form>
+<form method="post" action="http://localhost:8000/form">
   <label for="fname">First Name:</label>
   <input type="text" id="fname" name="fname"><br>
   <label for="lname">Last Name:</label>
   <input type="text" id="lname" name="lname"><br>
   <label for="age">Age:</label>
   <input type="text" id="age" name="age"><br>
+  <input type="submit" id="submit" name="submit">
 </form>
+
+
 
 
 <!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
@@ -165,7 +168,18 @@
 <!--MySQL-->
 <script>
   $(document).ready(function() {
-    $
+
+    $.ajax({
+      url:"localhost:8000/form",
+      type:"POST",
+      data:{
+        Firstname: "KY"
+
+      },
+      dataType:"json",
+
+
+    })
   })
 </script>
 </body>
