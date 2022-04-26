@@ -103,15 +103,17 @@ con.connect(function(err) {
     //
     // }
 app.post("/form", function(req, res) {
-    var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES("1",  "'+ req.body.fname + ')';
+
+    var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(?,?,?)", [ID +1, "Le", data.Firstname]);'
     con.query(querystatement, function (err, result) {
-        if (err) {
+        if (err, data) {
             res.json({
             msg:"Error inserting"
             });
         } else {
             res.json({
-                msg:"success"
+                msg:"success",
+                data: Firstname
             });
             console.log("Record Inserted Successfully")
         }

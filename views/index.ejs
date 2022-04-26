@@ -120,7 +120,7 @@
   <input type="text" id="lname" name="lname"><br>
   <label for="age">Age:</label>
   <input type="text" id="age" name="age"><br>
-  <input type="submit" id="submit" name="submit">
+  <input type="button" id="submit" name="submit">
 </form>
 
 
@@ -168,18 +168,24 @@
 <!--MySQL-->
 <script>
   $(document).ready(function() {
-
-    $.ajax({
+    $("#submit").click(function(e){
+      
+      e.preventDefault();
+      var Firstname = document.getElementById("fname") 
+      $.ajax({
+      
       url:"localhost:8000/form",
       type:"POST",
       data:{
-        Firstname: "KY"
+        Firstname: Firstname
 
       },
-      dataType:"json",
+      dataType:"json"
 
 
     })
+    })
+  
   })
 </script>
 </body>
