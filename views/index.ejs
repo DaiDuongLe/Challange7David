@@ -106,22 +106,27 @@
     }
   </style>
 
-  <title>Fine Uploader Manual Upload Trigger Demo</title>
+  <title>Fine Uploader Manual Upload and MySQL Form Submission</title>
 </head>
 <body>
 <!-- Fine Uploader DOM Element
 ====================================================================== -->
 <div id="fine-uploader-manual-trigger"></div>
-
-<form method="post" action="http://localhost:8000/form">
-  <label for="fname">First Name:</label>
-  <input type="text" id="fname" name="fname"><br>
-  <label for="lname">Last Name:</label>
-  <input type="text" id="lname" name="lname"><br>
-  <label for="age">Age:</label>
-  <input type="text" id="age" name="age"><br>
-  <input type="button" id="submit" name="submit">
+<h1>First Name: </h1>
+<form method="POST" id="fnamesubmit" action="http://localhost:8000/form">
+  <input type="text" placeholder="First Name" name="fnamesubmit" id="fname"/>
+  <input type="submit" value="Submit">
 </form>
+
+<!--<form method="post" id="submit" action="http://localhost:8000/form">-->
+<!--  <label for="fname">First Name: </label>-->
+<!--  <input type="text" id="fname" name="fname"><br>-->
+<!--  <label for="lname">Last Name:</label>-->
+<!--  <input type="text" id="lname" name="lname"><br>-->
+<!--  <label for="age">Age:</label>-->
+<!--  <input type="text" id="age" name="age"><br>-->
+<!--  <button type="submit" value="save" name="submit">Submit</button>-->
+<!--</form>-->
 
 
 
@@ -168,15 +173,21 @@
 <!--MySQL-->
 <script>
   $(document).ready(function() {
-    $("#submit").click(function(e){
-      
+    $("form#fnamesubmit").on("submit",function(e){
+
       e.preventDefault();
-      var Firstname = document.getElementById("fname") 
+      var Firstname = $('input[name=fnamesubmit]').val();
+      // var Firstname = this.value;
+      // var data = $('input[name=fname]').val();
+      var Lastname = this.value;
+      console.log("hello")
+      console.log(Firstname)
       $.ajax({
-      
-      url:"localhost:8000/form",
+
+      url:"/form",
       type:"POST",
       data:{
+        name: 'fnamesubmit',
         Firstname: Firstname
 
       },
@@ -185,9 +196,59 @@
 
     })
     })
-  
+
   })
 </script>
+<script>
+  //Browser Support Code
+  function ajaxFunction() {
+    var ajaxRequest;  // The variable that makes Ajax possible!
+
+    try {
+      // Opera 8.0+, Firefox, Safari
+      ajaxRequest = new XMLHttpRequest();
+    } catch (e) {
+
+      // Internet Explorer Browsers
+      try {
+        ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch (e) {
+
+        try {
+          ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (e) {
+          // Something went wrong
+          alert("Your browser broke!");
+          return false;
+        }
+      }
+    }
+
+    // Create a function that will receive data
+    // sent from the server and will update
+    // div section in the same page.
+    ajaxRequest.onreadystatechange = function() {
+
+      if(ajaxRequest.readyState == 4) {
+        var ajaxDisplay = document.getElementById('ajaxDiv');
+        ajaxDisplay.innerHTML = ajaxRequest.responseText;
+      }
+    }
+
+    // Now get the value from user and pass it to
+    // server script.
+    var age = document.getElementById('age').value;
+    var wpm = document.getElementById('wpm').value;
+    var sex = document.getElementById('sex').value;
+    var queryString = "?age = " + age ;
+
+    queryString +=  "&wpm = " + wpm + "&sex = " + sex;
+    ajaxRequest.open("GET", "ajax-example.php" + queryString, true);
+    ajaxRequest.send(null);
+  }
+</script>
+
+
 </body>
 </html>
 

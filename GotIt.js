@@ -39,7 +39,7 @@ fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
 // app.use(express.static(publicDir));
 // app.use("/node_modules", express.static(nodeModulesDir));
 app.use(express.static(__dirname));
-console.log(process.env.FILE_INPUT_NAME)
+// console.log(process.env.FILE_INPUT_NAME)
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -48,6 +48,11 @@ var con = mysql.createConnection({
     password: "Special888%",
     database: "Study"
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 // const moveFile = require('@npmcli/move-file');
 //
 // (async () => {
@@ -69,18 +74,14 @@ app.use((req, res, next) => {
 // app.engine('ejs', require('ejs').renderFile)
 // app.set('view engine', 'ejs');
 // app.use("scripts",express.static('scripts'));
-console.log(__dirname)
+//console.log(__dirname)
 // routes
 // app.use(express.static(__dirname + '/views'));
 
 
 
 //
-app.get('/',function(req,res) {
-    res.render('index.ejs');
-    // res.sendFile("/Users/imac08/IdeaProjects/Challange7David/views/manupload.html")
 
-});
 // app.get('/server/upload', onUpload, function (req, res) {
 //     res.json({ success: 'True' })
 // });
@@ -102,9 +103,22 @@ con.connect(function(err) {
     // while (true) {
     //
     // }
-app.post("/form", function(req, res) {
+app.post(function(req, res, next){
+    next();
+});
+app.get('/',function(req,res) {
+    res.render('index.ejs',{fname: ""})
+    // res.sendFile("/Users/imac08/IdeaProjects/Challange7David/views/manupload.html")
 
-    var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(?,?,?)", [ID +1, "Le", data.Firstname]);'
+});
+//
+app.post("/form", function(req, res) {
+    res.render('index.ejs');
+    console.log(req.body);
+    var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.placeholder + '","' +  req.body.Lastname +'"';
+    // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
+    // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
+    console.log(querystatement)
     con.query(querystatement, function (err, result) {
         if (err, data) {
             res.json({
