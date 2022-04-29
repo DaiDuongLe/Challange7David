@@ -115,24 +115,27 @@ app.get('/',function(req,res) {
 app.post("/form", function(req, res) {
     res.render('index.ejs');
     console.log(req.body);
-    var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.placeholder + '","' +  req.body.Lastname +'"';
+    var querystatement = 'INSERT INTO Challenge7David (ID, FirstName, LastName, Age) VALUES("6","' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
     // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
     // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
     console.log(querystatement)
     con.query(querystatement, function (err, result) {
-        if (err, data) {
+        if (err) {
             res.json({
             msg:"Error inserting"
             });
         } else {
             res.json({
                 msg:"success",
-                data: Firstname
+
             });
             console.log("Record Inserted Successfully")
         }
 
     });
+});
+con.on('error', function(err) {
+    console.log("[mysql error]",err);
 });
 // var querystatement = "INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES ('1', 'Company Inc', 'Highway 37')";
 //     con.query(querystatement, function (err, result) {

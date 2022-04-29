@@ -112,12 +112,23 @@
 <!-- Fine Uploader DOM Element
 ====================================================================== -->
 <div id="fine-uploader-manual-trigger"></div>
-<h1>First Name: </h1>
-<form method="POST" id="fnamesubmit" action="http://localhost:8000/form">
+
+<form method="POST" class="submit" action="http://localhost:8000/form">
   <input type="text" placeholder="First Name" name="fnamesubmit" id="fname"/>
+  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname"/>
+  <input type="text" placeholder="Age" name="age" id="age"/>
   <input type="submit" value="Submit">
 </form>
 
+<!--<form method="POST" class="submit" action="http://localhost:8000/form">-->
+<!--  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname"/>-->
+
+<!--</form>-->
+
+<!--<form method="POST" class="submit" action="http://localhost:8000/form">-->
+<!--  <input type="text" placeholder="Age" name="age" id="age"/>-->
+<!--  <input type="submit" value="Submit">-->
+<!--</form>-->
 <!--<form method="post" id="submit" action="http://localhost:8000/form">-->
 <!--  <label for="fname">First Name: </label>-->
 <!--  <input type="text" id="fname" name="fname"><br>-->
@@ -173,23 +184,24 @@
 <!--MySQL-->
 <script>
   $(document).ready(function() {
-    $("form#fnamesubmit").on("submit",function(e){
+    $("form.submit").on("submit",function(e){
 
       e.preventDefault();
       var Firstname = $('input[name=fnamesubmit]').val();
-      // var Firstname = this.value;
-      // var data = $('input[name=fname]').val();
-      var Lastname = this.value;
+      var Lastname = $('input[name=lnamesubmit]').val();
+      var Age = $('input[name=age]').val();
       console.log("hello")
       console.log(Firstname)
+      console.log(Lastname)
+      console.log(Age)
       $.ajax({
 
       url:"/form",
       type:"POST",
       data:{
-        name: 'fnamesubmit',
-        Firstname: Firstname
-
+        Firstname: Firstname,
+        Lastname: Lastname,
+        Age: Age
       },
       dataType:"json"
 
