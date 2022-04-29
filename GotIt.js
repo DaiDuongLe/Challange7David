@@ -113,12 +113,13 @@ app.get('/',function(req,res) {
 });
 //
 app.post("/form", function(req, res) {
-    res.render('index.ejs');
-    console.log(req.body);
-    var querystatement = 'INSERT INTO Challenge7David (ID, FirstName, LastName, Age) VALUES("6","' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
+
+    // console.log(req.body);
+    var querystatement = 'INSERT INTO Challenge7David (ID, FirstName, LastName, Age) VALUES("9","' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
     // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
     // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
-    console.log(querystatement)
+    // console.log(querystatement)
+
     con.query(querystatement, function (err, result) {
         if (err) {
             res.json({
@@ -126,12 +127,15 @@ app.post("/form", function(req, res) {
             });
         } else {
             res.json({
-                msg:"success",
+
+                msg:"success"
+
+
 
             });
+
             console.log("Record Inserted Successfully")
         }
-
     });
 });
 con.on('error', function(err) {
