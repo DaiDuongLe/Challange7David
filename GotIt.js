@@ -96,10 +96,7 @@ app.delete("/uploads/:uuid", onDeleteFile);
 console.log('Server started at http://localhost:' + port);
 
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+
     // while (true) {
     //
     // }
@@ -115,10 +112,10 @@ app.get('/',function(req,res) {
 app.post("/form", function(req, res) {
 
     // console.log(req.body);
-    var querystatement = 'INSERT INTO Challenge7David (ID, FirstName, LastName, Age) VALUES("9","' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
+    var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
     // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
     // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
-    // console.log(querystatement)
+    console.log(querystatement)
 
     con.query(querystatement, function (err, result) {
         if (err) {
