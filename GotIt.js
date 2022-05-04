@@ -26,7 +26,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
 
 // paths/constants
-fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
+    fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     publicDir = process.env.PUBLIC_DIR,
     nodeModulesDir = process.env.NODE_MODULES_DIR,
     // uploadedFilesPath = process.env.PWD + "/uploadFiles",
@@ -97,9 +97,9 @@ console.log('Server started at http://localhost:' + port);
 
 
 
-    // while (true) {
-    //
-    // }
+// while (true) {
+//
+// }
 app.post(function(req, res, next){
     next();
 });
@@ -120,7 +120,7 @@ app.post("/form", function(req, res) {
     con.query(querystatement, function (err, result) {
         if (err) {
             res.json({
-            msg:"Error inserting"
+                msg:"Error inserting"
             });
         } else {
             res.json({
@@ -277,7 +277,7 @@ function moveFile(destinationDir, sourceFile, destinationFile, success, failure)
 
 function moveUploadedFile(file, uuid, success, failure) {
     var destinationDir = uploadedFilesPath + uuid + "/",
-    // var destinationDir = uploadedFilesPath + "/"
+        // var destinationDir = uploadedFilesPath + "/"
         fileDestination = destinationDir + file.name;
 
     moveFile(destinationDir, file.path, fileDestination, success, failure);
@@ -285,7 +285,7 @@ function moveUploadedFile(file, uuid, success, failure) {
 
 function storeChunk(file, uuid, index, numChunks, success, failure) {
     var destinationDir = uploadedFilesPath + uuid + "/" + chunkDirName + "/",
-    // var destinationDir = uploadedFilesPath + "/" + chunkDirName + "/"
+        // var destinationDir = uploadedFilesPath + "/" + chunkDirName + "/"
         chunkFilename = getChunkFilename(index, numChunks),
         fileDestination = destinationDir + chunkFilename;
 
