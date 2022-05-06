@@ -24,13 +24,13 @@ var express = require("express"),
     app = express(),
     path = require('path'),
     bodyParser = require('body-parser'),
-
+    // moveFile = require('dank-movefile')
 // paths/constants
     fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     publicDir = process.env.PUBLIC_DIR,
     nodeModulesDir = process.env.NODE_MODULES_DIR,
-    // uploadedFilesPath = process.env.PWD + "/uploadFiles",
-    uploadedFilesPath = process.env.UPLOADED_FILES_DIR,
+    uploadedFilesPath = process.env.PWD + "/uploadFiles",
+    // uploadedFilesPath = process.env.UPLOADED_FILES_DIR,
     // uploadedFilesPath = "/Users/imac08/IdeaProjects/Challange7David/uploadFiles",
     chunkDirName = "chunks",
     // port = process.env.SERVER_PORT || 8000,
@@ -60,6 +60,15 @@ app.use(bodyParser.urlencoded({
 //     console.log('The file has been moved');
 // })();
 
+
+// moveFile('uploadFiles/testmove.js', 'DataDir/', function (err) {
+//     if (err) {
+//         console.log(err);
+//     }
+//     else {
+//         console.log('move success');
+//     }
+// });
 
 
 app.listen(port);
@@ -94,8 +103,12 @@ app.delete("/uploads/:uuid", onDeleteFile);
 
 
 console.log('Server started at http://localhost:' + port);
-
-
+// var oldPath = ""
+// var newPath = ""
+// fs.rename(oldPath, newPath, function(err, data){
+//     if(err) throw err
+//
+// })
 
 // while (true) {
 //
@@ -104,7 +117,7 @@ app.post(function(req, res, next){
     next();
 });
 app.get('/',function(req,res) {
-    res.render('index.ejs',{fname: ""})
+    res.render('index.ejs')
     // res.sendFile("/Users/imac08/IdeaProjects/Challange7David/views/manupload.html")
 
 });
@@ -276,9 +289,11 @@ function moveFile(destinationDir, sourceFile, destinationFile, success, failure)
 }
 
 function moveUploadedFile(file, uuid, success, failure) {
-    var destinationDir = uploadedFilesPath + uuid + "/",
-        // var destinationDir = uploadedFilesPath + "/"
+    /* var destinationDir = uploadedFilesPath + uuid + "/", */
+
+    var destinationDir = uploadedFilesPath + "/"
         fileDestination = destinationDir + file.name;
+        console.log(fileDestination)
 
     moveFile(destinationDir, file.path, fileDestination, success, failure);
 }
