@@ -1,0 +1,15 @@
+Requirement: When user clicks on approval button, move HIS file from uploadFiles to DataDir
+
+Algorithm:
+User Clicks Select Files
+User Select Files when file manager prompted and Clicks Upload
+User waits for file to Load
+User Clicks Upload
+Files are uploaded to uploadFiles
+User Selects Name with It's UUID
+File selected for Approval
+User Clicks Approve
+User's file from uploadFiles is moved to DataDir
+
+
+

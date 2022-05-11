@@ -110,9 +110,6 @@ console.log('Server started at http://localhost:' + port);
 //
 // })
 
-// while (true) {
-//
-// }
 app.post(function(req, res, next){
     next();
 });
@@ -293,7 +290,7 @@ function moveUploadedFile(file, uuid, success, failure) {
 
     var destinationDir = uploadedFilesPath + "/"
         fileDestination = destinationDir + file.name;
-        console.log(fileDestination)
+        console.log(file.path)
 
     moveFile(destinationDir, file.path, fileDestination, success, failure);
 }

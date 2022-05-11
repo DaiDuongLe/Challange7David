@@ -4,16 +4,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <!--jQuery-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- Fine Uploader New/Modern CSS file
   ====================================================================== -->
   <link href="/node_modules/fine-uploader/fine-uploader/fine-uploader-new.css" rel="stylesheet">
+<!--DataTables-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
   <!-- Fine Uploader JS file
   ====================================================================== -->
   <script src="/node_modules/fine-uploader/fine-uploader/fine-uploader.js"></script>
-  <!--jQuery-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
   <!-- Fine Uploader Thumbnails template w/ customization
   ====================================================================== -->
   <script type="text/template" id="qq-template-manual-trigger">
@@ -29,9 +33,9 @@
         <div class="qq-upload-button-selector qq-upload-button">
           <div>Select files</div>
         </div>
-        <button type="button" id="trigger-upload" class="btn btn-primary">
-          <i class="icon-upload icon-white"></i> Upload
-        </button>
+<!--        <button type="button" id="trigger-upload" class="btn btn-primary">-->
+<!--          <i class="icon-upload icon-white"></i> Upload-->
+<!--        </button>-->
       </div>
       <div>
         <button type="button" id="clear-upload" class="btn btn-primary">Clear</button>
@@ -114,12 +118,30 @@
 <div id="fine-uploader-manual-trigger"></div>
 
 <form method="POST" class="submit" action="http://localhost:8000/form">
-  <input type="text" placeholder="First Name" name="fnamesubmit" id="fname"/>
-  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname"/>
-  <input type="text" placeholder="Age" name="age" id="age"/>
-  <input type="submit" value="Submit">
+  <input type="text" placeholder="First Name" name="fnamesubmit" id="fname" required/>
+  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname" required/>
+  <input type="text" placeholder="Age" name="age" id="age" required/>
+  <input type="submit" value="Submit" id="trigger-upload" class="btn btn-primary">
 </form>
 
+<table id="table" class="display">
+  <thead>
+  <tr>
+    <th>Column 1</th>
+    <th>Column 2</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Row 1 Data 1</td>
+    <td>Row 1 Data 2</td>
+  </tr>
+  <tr>
+    <td>Row 2 Data 1</td>
+    <td>Row 2 Data 2</td>
+  </tr>
+  </tbody>
+</table>
 <!--<form method="POST" class="submit" action="http://localhost:8000/form">-->
 <!--  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname"/>-->
 
@@ -215,6 +237,12 @@
     })
 
   })
+</script>
+<!--DataTables-->
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#table').DataTable();
+  } );
 </script>
 <!--<script>-->
 <!--  //Browser Support Code-->
