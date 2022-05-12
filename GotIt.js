@@ -24,7 +24,9 @@ var express = require("express"),
     app = express(),
     path = require('path'),
     bodyParser = require('body-parser'),
-    // moveFile = require('dank-movefile')
+    moment = require('moment'),
+
+// moveFile = require('dank-movefile')
 // paths/constants
     fileInputName = process.env.FILE_INPUT_NAME || "qqfile",
     publicDir = process.env.PUBLIC_DIR,
@@ -119,10 +121,14 @@ app.get('/',function(req,res) {
 
 });
 //
+var timestamp = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+
 app.post("/form", function(req, res) {
 
     // console.log(req.body);
-    var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
+    // var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
+    var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + '");';
+
     // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
     // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
     console.log(querystatement)
