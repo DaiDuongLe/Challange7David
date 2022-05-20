@@ -96,6 +96,13 @@
       padding: 7px 20px;
       background-image: none;
     }
+    #approve{
+      color: white;
+      background-color: #00ABC7;
+      font-size: 14px;
+      padding: 7px 20px;
+      background-image: none;
+    }
 
     #fine-uploader-manual-trigger .qq-upload-button {
       margin-right: 15px;
@@ -122,6 +129,7 @@
   <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname" required/>
   <input type="text" placeholder="Age" name="age" id="age" required/>
   <input type="submit" value="Submit" id="trigger-upload" class="btn btn-primary">
+  <button type="button" value="approve" id="approve" class="btn btn-primary">Approve</button>
 </form>
 
 <table id="table" class="display">
@@ -191,7 +199,7 @@
 
   qq(document.getElementById("trigger-upload")).attach("click", function() {
     manualUploader.uploadStoredFiles();
-
+    console.log(manualUploader)
   });
   qq(document.getElementById("clear-upload")).attach("click", function() {
     manualUploader.clearStoredFiles();
@@ -212,30 +220,37 @@
       var Firstname = $('input[name=fnamesubmit]').val();
       var Lastname = $('input[name=lnamesubmit]').val();
       var Age = $('input[name=age]').val();
-      console.log("hello")
+      // console.log("hello")
       console.log(Firstname)
       console.log(Lastname)
       console.log(Age)
 
       $.ajax({
 
-      url:"/form",
-      type:"POST",
-      data:{
-        Firstname: Firstname,
-        Lastname: Lastname,
-        Age: Age
-
-      },
-      dataType:"json",
-      success: function() {
-        alert("Form submitted!")
-      }
-
+        url:"/form",
+        type:"POST",
+        data:{
+          Firstname: Firstname,
+          Lastname: Lastname,
+          Age: Age},
+        dataType:"json",
+        success: function(tt) {
+          alert("Form submitted!!!!")
+          console.log(tt)
+        }
       })
-
     })
-
+    $("#approve").on("click", function(e) {
+      e.preventDefault();
+      $.ajax({
+        url:"/approve",
+        type:"POST",
+        dataType: "json",
+        success: function () {
+          alert("Approve Clicked")
+        }
+      })
+    })
   })
 </script>
 <!--DataTables-->

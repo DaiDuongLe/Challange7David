@@ -117,6 +117,7 @@ app.post(function(req, res, next){
 });
 app.get('/',function(req,res) {
     res.render('index.ejs')
+
     // res.sendFile("/Users/imac08/IdeaProjects/Challange7David/views/manupload.html")
 
 });
@@ -124,15 +125,16 @@ app.get('/',function(req,res) {
 var timestamp = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 // var filename = file.name
 // console.log(fields.qqfilename)
+
 app.post("/form", function(req, res) {
 
-    // console.log(req.body);
+    console.log(req.body);
     // var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
     var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded, FileName) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + '");';
 
     // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
     // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
-    console.log(querystatement)
+    // console.log(querystatement)
 
     con.query(querystatement, function (err, result) {
         if (err) {
@@ -147,11 +149,16 @@ app.post("/form", function(req, res) {
 
 
             });
-
             console.log("Record Inserted Successfully")
         }
+
     });
 });
+app.post("/approve", function (req, res) {
+res.json({
+
+})
+})
 con.on('error', function(err) {
     console.log("[mysql error]",err);
 });
@@ -165,14 +172,16 @@ function onUpload(req, res) {
     var form = new multiparty.Form();
 
     form.parse(req, function(err, fields, files) {
+
         var partIndex = fields.qqpartindex;
-console.log(partIndex)
         // text/plain is required to ensure support for IE9 and older
         res.set("Content-Type", "text/plain");
 
         if (partIndex == null) {
             onSimpleUpload(fields, files[fileInputName][0], res);
+            // console.log(onSimpleUpload())
         }
+
         else {
             onChunkedUpload(fields, files[fileInputName][0], res);
         }
@@ -266,7 +275,7 @@ function isValid(size) {
 }
 
 function moveFile(destinationDir, sourceFile, destinationFile, success, failure) {
-    console.log(destinationDir)
+    // console.log(destinationDir + "This is the Destination directory")
     mkdirp(destinationDir, function(error) {
         var sourceStream, destStream;
 
@@ -297,32 +306,32 @@ function moveFile(destinationDir, sourceFile, destinationFile, success, failure)
 function moveUploadedFile(file, uuid, success, failure) {
     /* var destinationDir = uploadedFilesPath + uuid + "/", */
 
-console.log(file)
     var destinationDir = uploadedFilesPath + "/"
         fileDestination = destinationDir + file.name;
-        console.log(fileDestination)
+        // console.log(fileDestination)
 
     moveFile(destinationDir, file.path, fileDestination, success, failure);
 
 
-//     var oldPath = fileDestination
-// var newPath = "DataDir/" + file.name
-// fs.rename(oldPath, newPath, function(err, data){
-//     if(err) throw err
-//
-// })
-//
+
 
 
 
 
 }
-    var oldPath = fileDestination
-var newPath = "DataDir/" + file.name
-fs.rename(oldPath, newPath, function(err, data){
-    if(err) throw err
+//
+//
+// var access = new moveUploadedFile(file, uuid, success, failure)
+// var oldPath = fileDestination
+// var newPath = "DataDir/" + file.name
+// if (file.name = file.name){
+//     newPath + "1"
+// }
+// fs.rename(oldPath, newPath, function(err, data){
+//     if(err) throw err
+//     console.log("File Moved Successfully")
+// })
 
-})
 
 
 // function storeChunk(file, uuid, index, numChunks, success, failure) {
