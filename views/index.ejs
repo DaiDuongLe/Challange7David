@@ -132,24 +132,24 @@
   <button type="button" value="approve" id="approve" class="btn btn-primary">Approve</button>
 </form>
 
-<table id="table" class="display">
-  <thead>
-  <tr>
-    <th>Column 1</th>
-    <th>Column 2</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>Row 1 Data 1</td>
-    <td>Row 1 Data 2</td>
-  </tr>
-  <tr>
-    <td>Row 2 Data 1</td>
-    <td>Row 2 Data 2</td>
-  </tr>
-  </tbody>
-</table>
+<!--<table id="table" class="display">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th>Column 1</th>-->
+<!--    <th>Column 2</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr>-->
+<!--    <td>Row 1 Data 1</td>-->
+<!--    <td>Row 1 Data 2</td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <td>Row 2 Data 1</td>-->
+<!--    <td>Row 2 Data 2</td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
 <!--<form method="POST" class="submit" action="http://localhost:8000/form">-->
 <!--  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname"/>-->
 
@@ -195,11 +195,11 @@
     autoUpload: false,
     debug: true,
 
-  });
+  })
 
   qq(document.getElementById("trigger-upload")).attach("click", function() {
     manualUploader.uploadStoredFiles();
-    console.log(manualUploader)
+
   });
   qq(document.getElementById("clear-upload")).attach("click", function() {
     manualUploader.clearStoredFiles();
@@ -234,9 +234,14 @@
           Lastname: Lastname,
           Age: Age},
         dataType:"json",
-        success: function(tt) {
-          alert("Form submitted!!!!")
-          console.log(tt)
+        success: function(msg) {
+          if (msg.msg == "success"){
+            alert("Form submitted!")
+          } else {
+            alert("Form failed! Please try again later!")
+          }
+
+          console.log(msg)
         }
       })
     })
@@ -248,6 +253,7 @@
         dataType: "json",
         success: function () {
           alert("Approve Clicked")
+
         }
       })
     })

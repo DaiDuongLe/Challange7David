@@ -50,7 +50,7 @@ var con = mysql.createConnection({
     password: "Special888%",
     database: "Study"
 });
-
+console.log(fileInputName)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -128,9 +128,9 @@ var timestamp = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
 app.post("/form", function(req, res) {
 
-    console.log(req.body);
+
     // var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
-    var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded, FileName) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + '");';
+    var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + '");';
 
     // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
     // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
@@ -188,6 +188,7 @@ function onUpload(req, res) {
     });
 }
 
+console.log(onUpload.type)
 function onSimpleUpload(fields, file, res) {
     var uuid = fields.qquuid,
         responseData = {
@@ -319,6 +320,7 @@ function moveUploadedFile(file, uuid, success, failure) {
 
 
 }
+
 //
 //
 // var access = new moveUploadedFile(file, uuid, success, failure)
