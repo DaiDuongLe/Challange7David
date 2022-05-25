@@ -130,26 +130,34 @@
   <input type="text" placeholder="Age" name="age" id="age" required/>
   <input type="submit" value="Submit" id="trigger-upload" class="btn btn-primary">
   <button type="button" value="approve" id="approve" class="btn btn-primary">Approve</button>
-</form>
 
-<!--<table id="table" class="display">-->
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th>Column 1</th>-->
-<!--    <th>Column 2</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-<!--  <tr>-->
-<!--    <td>Row 1 Data 1</td>-->
-<!--    <td>Row 1 Data 2</td>-->
-<!--  </tr>-->
-<!--  <tr>-->
-<!--    <td>Row 2 Data 1</td>-->
-<!--    <td>Row 2 Data 2</td>-->
-<!--  </tr>-->
-<!--  </tbody>-->
-<!--</table>-->
+
+</form>
+<input type="text" placeholder="File Name" name="filename" id="filename"/>
+
+<% for(var i=0; i<data.length; i++) {%>
+
+
+<%} %>
+
+<table id="table" class="display">
+  <thead>
+  <tr>
+    <th>Column 1</th>
+    <th>Column 2</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%=data[0].ID%></td>
+
+  </tr>
+  <tr>
+    <td><%=data[1].LastName%></td>
+
+  </tr>
+  </tbody>
+</table>
 <!--<form method="POST" class="submit" action="http://localhost:8000/form">-->
 <!--  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname"/>-->
 

@@ -116,7 +116,14 @@ app.post(function(req, res, next){
     next();
 });
 app.get('/',function(req,res) {
-    res.render('index.ejs')
+    con.query('SELECT * FROM Challenge7David ORDER BY id desc', function(err, rows) {
+        res.render('index.ejs', {
+            data: rows
+
+
+        });
+    });
+
 
     // res.sendFile("/Users/imac08/IdeaProjects/Challange7David/views/manupload.html")
 
