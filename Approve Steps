@@ -11,5 +11,31 @@ File selected for Approval
 User Clicks Approve
 User's file from uploadFiles is moved to DataDir
 
+<table id="table" class="display">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>First Name</th>
+    <th>Time Stamp</th>
+  </tr>
+  </thead>
+  <tbody>
+
+    <% for(var i = 0; i < data.length; i++) { %>
+
+    <td><%=data[i].ID%></td>
+
+    <%} %>
+
+<%=console.log(i)%>
+
+  <tr>
+    <td><%=data[0].LastName%></td>
+
+  </tr>
+  </tbody>
+</table>
 
 

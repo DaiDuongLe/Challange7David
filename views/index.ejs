@@ -9,6 +9,7 @@
   <!-- Fine Uploader New/Modern CSS file
   ====================================================================== -->
   <link href="/node_modules/fine-uploader/fine-uploader/fine-uploader-new.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/file-uploader/5.16.2/fine-uploader-gallery.min.css"/>
 <!--DataTables-->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
@@ -17,7 +18,7 @@
   <!-- Fine Uploader JS file
   ====================================================================== -->
   <script src="/node_modules/fine-uploader/fine-uploader/fine-uploader.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/file-uploader/5.16.2/fine-uploader.min.js"></script>
   <!-- Fine Uploader Thumbnails template w/ customization
   ====================================================================== -->
   <script type="text/template" id="qq-template-manual-trigger">
@@ -115,6 +116,26 @@
     #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
       width: 60%;
     }
+    body {
+      background-color: #4aafe7;
+    }
+    #FormSuccess {
+    color: #46f800;
+      background-color: coral;
+
+    }
+
+    .FormStatusColor{
+      font-family: "Arial Unicode MS";
+      background-color: #ff0000;
+
+    }
+    #fname{
+      size: 160px;
+    }
+    #lname{
+      size: 160px;
+    }
   </style>
 
   <title>Fine Uploader Manual Upload and MySQL Form Submission</title>
@@ -123,41 +144,51 @@
 <!-- Fine Uploader DOM Element
 ====================================================================== -->
 <div id="fine-uploader-manual-trigger"></div>
+<h2 class="FormStatusColor">Form Status: <div id="FormSuccess">Pending...</div></h2>
 
 <form method="POST" class="submit" action="http://localhost:8000/form">
-  <input type="text" placeholder="First Name" name="fnamesubmit" id="fname" required/>
-  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname" required/>
-  <input type="text" placeholder="Age" name="age" id="age" required/>
+  <input type="text" placeholder="First Name" name="fnamesubmit" id="fname" required autocomplete="on" maxlength="70"/>
+  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname" required autocomplete="on" maxlength="70"/>
+  <input type="number" placeholder="Age" name="age" id="age" required autocomplete="on" max="120" size="2"/>
   <input type="submit" value="Submit" id="trigger-upload" class="btn btn-primary">
   <button type="button" value="approve" id="approve" class="btn btn-primary">Approve</button>
 
-
 </form>
-<input type="text" placeholder="File Name" name="filename" id="filename"/>
+<!--<input type="text" placeholder="File Name" name="filename" id="filename"/>-->
 
-<% for(var i=0; i<data.length; i++) {%>
-
-
-<%} %>
 
 <table id="table" class="display">
   <thead>
   <tr>
-    <th>Column 1</th>
-    <th>Column 2</th>
+    <th>ID</th>
+    <th>Last Name</th>
+    <th>First Name</th>
+    <th>Time Uploaded</th>
+    <th>File Name</th>
+
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td><%=data[0].ID%></td>
 
-  </tr>
+  <% for (var i = 0; i < data.length; i++) { %>
   <tr>
-    <td><%=data[1].LastName%></td>
-
+    <td> <%=data[i].ID%></td>
+    <td><%=data[i].LastName%></td>
+    <td><%=data[i].FirstName%></td>
+    <td><%=data[i].TimeUploaded%></td>
   </tr>
+
+  <% } %>
+
+
+
+
+
   </tbody>
 </table>
+
+
+
 <!--<form method="POST" class="submit" action="http://localhost:8000/form">-->
 <!--  <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname"/>-->
 
@@ -229,9 +260,9 @@
       var Lastname = $('input[name=lnamesubmit]').val();
       var Age = $('input[name=age]').val();
       // console.log("hello")
-      console.log(Firstname)
-      console.log(Lastname)
-      console.log(Age)
+      console.log("First Name:" + Firstname)
+      console.log("Last Name:" + Lastname)
+      console.log("Age:" + Age)
 
       $.ajax({
 
@@ -244,9 +275,9 @@
         dataType:"json",
         success: function(msg) {
           if (msg.msg == "success"){
-            alert("Form submitted!")
+            document.getElementById("FormSuccess").innerHTML = "Form Submitted Successfully!"
           } else {
-            alert("Form failed! Please try again later!")
+            document.getElementById("FormSuccess").innerHTML = "Form Failed!"
           }
 
           console.log(msg)
@@ -270,57 +301,64 @@
 <!--DataTables-->
 <script type="text/javascript">
   $(document).ready( function () {
-    $('#table').DataTable();
+    $('#table').DataTable({});
+
   } );
+
+
 </script>
-<!--<script>-->
-<!--  //Browser Support Code-->
-<!--  function ajaxFunction() {-->
-<!--    var ajaxRequest;  // The variable that makes Ajax possible!-->
+<script>
+  //Browser Support Code
+  function ajaxFunction() {
+    var ajaxRequest;  // The variable that makes Ajax possible!
 
-<!--    try {-->
-<!--      // Opera 8.0+, Firefox, Safari-->
-<!--      ajaxRequest = new XMLHttpRequest();-->
-<!--    } catch (e) {-->
+    try {
+      // Opera 8.0+, Firefox, Safari
+      ajaxRequest = new XMLHttpRequest();
+    } catch (e) {
 
-<!--      // Internet Explorer Browsers-->
-<!--      try {-->
-<!--        ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");-->
-<!--      } catch (e) {-->
+      // Internet Explorer Browsers
+      try {
+        ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch (e) {
 
-<!--        try {-->
-<!--          ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");-->
-<!--        } catch (e) {-->
-<!--          // Something went wrong-->
-<!--          alert("Your browser broke!");-->
-<!--          return false;-->
-<!--        }-->
-<!--      }-->
-<!--    }-->
+        try {
+          ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (e) {
+          // Something went wrong
+          alert("Your browser broke!");
+          return false;
+        }
+      }
+    }
+// Restricts input for each element in the set of matched elements to the given inputFilter.
+    (function($) {
+      $.fn.inputFilter = function(inputFilter) {
+        return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+          if (inputFilter(this.value)) {
+            this.oldValue = this.value;
+            this.oldSelectionStart = this.selectionStart;
+            this.oldSelectionEnd = this.selectionEnd;
+          } else if (this.hasOwnProperty("oldValue")) {
+            this.value = this.oldValue;
+            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+          } else {
+            this.value = "";
+          }
+        });
+      };
+    }(jQuery));
 
-<!--    // Create a function that will receive data-->
-<!--    // sent from the server and will update-->
-<!--    // div section in the same page.-->
-<!--    ajaxRequest.onreadystatechange = function() {-->
 
-<!--      if(ajaxRequest.readyState == 4) {-->
-<!--        var ajaxDisplay = document.getElementById('ajaxDiv');-->
-<!--        ajaxDisplay.innerHTML = ajaxRequest.responseText;-->
-<!--      }-->
-<!--    }-->
+// Install input filters.
 
-<!--    // Now get the value from user and pass it to-->
-<!--    // server script.-->
-<!--    var age = document.getElementById('age').value;-->
-<!--    var wpm = document.getElementById('wpm').value;-->
-<!--    var sex = document.getElementById('sex').value;-->
-<!--    var queryString = "?age = " + age ;-->
-
-<!--    queryString +=  "&wpm = " + wpm + "&sex = " + sex;-->
-<!--    ajaxRequest.open("GET", "ajax-example.php" + queryString, true);-->
-<!--    ajaxRequest.send(null);-->
-<!--  }-->
-<!--</script>-->
+    $("#fname").inputFilter(function(value) {
+      return /^[a-z]*$/i.test(value); });
+    $("#lname").inputFilter(function(value) {
+      return /^[a-z]*$/i.test(value); });
+    $("#age").inputFilter(function(value) {
+      return /^[0-9a-f]*$/i.test(value); });
+</script>
 
 
 </body>

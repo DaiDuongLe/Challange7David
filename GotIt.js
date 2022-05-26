@@ -50,7 +50,7 @@ var con = mysql.createConnection({
     password: "Special888%",
     database: "Study"
 });
-console.log(fileInputName)
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -116,12 +116,32 @@ app.post(function(req, res, next){
     next();
 });
 app.get('/',function(req,res) {
-    con.query('SELECT * FROM Challenge7David ORDER BY id desc', function(err, rows) {
+    var FetchTable = "SELECT * FROM Study.Challenge7David ORDER BY ID desc"
+    con.query(FetchTable, function(err, rows) {
         res.render('index.ejs', {
+
+            // data: JSON.stringify(rows)
             data: rows
 
 
         });
+    //     con.query(FetchTable, function (err, rows) {
+    //         if (err) {
+    //             res.json({
+    //                 msg:"Error inserting"
+    //             });
+    //         } else {
+    //             res.json({
+    //
+    //                 data: rows
+    //
+    //
+    //
+    //             });
+    //             console.log("Record Inserted Successfully")
+    //         }
+    //
+    //     });
     });
 
 
@@ -130,6 +150,10 @@ app.get('/',function(req,res) {
 });
 //
 var timestamp = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+for(var e = 0;e=e;e++) {
+    console.log(timestamp)
+}
+
 // var filename = file.name
 // console.log(fields.qqfilename)
 
@@ -174,7 +198,7 @@ con.on('error', function(err) {
 //         if (err) throw err;
 //         console.log("1 record inserted");
 //     });
-
+// var onUpload;
 function onUpload(req, res) {
     var form = new multiparty.Form();
 
@@ -192,10 +216,12 @@ function onUpload(req, res) {
         else {
             onChunkedUpload(fields, files[fileInputName][0], res);
         }
+return form.uploadDir
     });
 }
+// var response = onUpload();
+// console.log(response)
 
-console.log(onUpload.type)
 function onSimpleUpload(fields, file, res) {
     var uuid = fields.qquuid,
         responseData = {
