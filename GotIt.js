@@ -199,10 +199,11 @@ con.on('error', function(err) {
 //         console.log("1 record inserted");
 //     });
 // var onUpload;
+var test1;
 function onUpload(req, res) {
     var form = new multiparty.Form();
 
-    form.parse(req, function(err, fields, files) {
+   form.parse(req, function(err, fields, files) {
 
         var partIndex = fields.qqpartindex;
         // text/plain is required to ensure support for IE9 and older
@@ -210,15 +211,24 @@ function onUpload(req, res) {
 
         if (partIndex == null) {
             onSimpleUpload(fields, files[fileInputName][0], res);
-            // console.log(onSimpleUpload())
+            // console.log(files[fileInputName][0]);
+
         }
 
         else {
             onChunkedUpload(fields, files[fileInputName][0], res);
         }
-return form.uploadDir
+        test1 = files[fileInputName][0]
+     
     });
+
 }
+
+// var filenamefunc = function filenamefunc(fields, files){
+//
+//     return files[fileInputName][0]
+// }
+
 // var response = onUpload();
 // console.log(response)
 
