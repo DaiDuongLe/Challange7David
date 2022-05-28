@@ -176,6 +176,7 @@
     <td><%=data[i].LastName%></td>
     <td><%=data[i].FirstName%></td>
     <td><%=data[i].TimeUploaded%></td>
+    <td><%=data[i].FileName%></td>
   </tr>
 
   <% } %>
@@ -290,8 +291,14 @@
         url:"/approve",
         type:"POST",
         dataType: "json",
-        success: function () {
-          alert("Approve Clicked")
+        success: function (msg) {
+          if (msg.msg == "success") {
+            document.getElementById("FormSuccess").innerHTML = "Approved!";
+          }
+          if (msg.msg == "error") {
+              console.log(msg.msg)
+              document.getElementById("FormSuccess").innerHTML = "Approve Failed!";          }
+
 
         }
       })
@@ -357,7 +364,7 @@
     $("#lname").inputFilter(function(value) {
       return /^[a-z]*$/i.test(value); });
     $("#age").inputFilter(function(value) {
-      return /^[0-9a-f]*$/i.test(value); });
+      return /^[0-9a-f]*$/i.test(value); });}
 </script>
 
 

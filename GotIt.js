@@ -157,39 +157,8 @@ for(var e = 0;e=e;e++) {
 // var filename = file.name
 // console.log(fields.qqfilename)
 
-app.post("/form", function(req, res) {
 
 
-    // var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
-    var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + '");';
-
-    // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
-    // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
-    // console.log(querystatement)
-
-    con.query(querystatement, function (err, result) {
-        if (err) {
-            res.json({
-                msg:"Error inserting"
-            });
-        } else {
-            res.json({
-
-                msg:"success"
-
-
-
-            });
-            console.log("Record Inserted Successfully")
-        }
-
-    });
-});
-app.post("/approve", function (req, res) {
-res.json({
-
-})
-})
 con.on('error', function(err) {
     console.log("[mysql error]",err);
 });
@@ -219,11 +188,59 @@ function onUpload(req, res) {
             onChunkedUpload(fields, files[fileInputName][0], res);
         }
         test1 = files[fileInputName][0]
-     
+
+       if (test1.name[0] != undefined) {
+           app.post("/form", function(req, res) {
+
+
+               // var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
+               var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded, FileName) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') +'","' + test1.name[0] + '");';
+
+               // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
+               // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
+               // console.log(querystatement)
+
+               con.query(querystatement, function (err, result) {
+                   if (err) {
+                       res.json({
+                           msg:"Error inserting"
+                       });
+                   } else {
+                       res.json({
+
+                           msg:"success"
+
+
+
+                       });
+                       console.log("Record Inserted Successfully")
+                   }
+
+               });
+           });
+       }
+
     });
 
 }
+app.post("/approve", function (req, res) {
+    console.log(test1.name[0])
+    fs.rename("/Users/imac08/IdeaProjects/Challange7David/uploadFiles/" + test1.name[0], "/Users/imac08/IdeaProjects/Challange7David/DataDir/" + test1.name[0], function (err) {
+        console.log(err)
+        if (err)  {
+            res.json({
+                msg: "error"
+            })
+        } else {
+            res.json({
+                msg: "success"
+            })
+        }
+    })
 
+
+
+})
 // var filenamefunc = function filenamefunc(fields, files){
 //
 //     return files[fileInputName][0]
