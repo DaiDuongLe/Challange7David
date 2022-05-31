@@ -34,9 +34,9 @@
         <div class="qq-upload-button-selector qq-upload-button">
           <div>Select files</div>
         </div>
-<!--        <button type="button" id="trigger-upload" class="btn btn-primary">-->
-<!--          <i class="icon-upload icon-white"></i> Upload-->
-<!--        </button>-->
+        <button type="button" id="trigger-upload" class="btn btn-primary">
+          <i class="icon-upload icon-white"></i> Upload
+        </button>
       </div>
       <div>
         <button type="button" id="clear-upload" class="btn btn-primary">Clear</button>
@@ -136,6 +136,13 @@
     #lname{
       size: 160px;
     }
+    #submit{
+      color: white;
+      background-color: #00ABC7;
+      font-size: 14px;
+      padding: 7px 20px;
+      background-image: none;
+    }
   </style>
 
   <title>Fine Uploader Manual Upload and MySQL Form Submission</title>
@@ -150,9 +157,13 @@
   <input type="text" placeholder="First Name" name="fnamesubmit" id="fname" required autocomplete="on" maxlength="70"/>
   <input type="text" placeholder="Last Name" name="lnamesubmit" id="lname" required autocomplete="on" maxlength="70"/>
   <input type="number" placeholder="Age" name="age" id="age" required autocomplete="on" max="120" size="2"/>
-  <input type="submit" value="Submit" id="trigger-upload" class="btn btn-primary">
-  <button type="button" value="approve" id="approve" class="btn btn-primary">Approve</button>
+  <input type="submit" value="Submit" id="submit" class="btn btn-primary">
 
+
+</form>
+<form method="POST" action="http://localhost:8000/approve">
+  <input type="text" placeholder="File Name" name="approve"/>
+  <input type="submit" value="Approve" id="approve" class="btn btn-primary"/>
 </form>
 <!--<input type="text" placeholder="File Name" name="filename" id="filename"/>-->
 
@@ -165,7 +176,7 @@
     <th>First Name</th>
     <th>Time Uploaded</th>
     <th>File Name</th>
-
+    <th>File Status</th>
   </tr>
   </thead>
   <tbody>
@@ -177,6 +188,7 @@
     <td><%=data[i].FirstName%></td>
     <td><%=data[i].TimeUploaded%></td>
     <td><%=data[i].FileName%></td>
+    <td><%=data[i].Status%></td>
   </tr>
 
   <% } %>
@@ -287,17 +299,21 @@
     })
     $("#approve").on("click", function(e) {
       e.preventDefault();
+      var approve = $('input[name=approve]').val();
       $.ajax({
         url:"/approve",
         type:"POST",
+        data: {approve:approve},
         dataType: "json",
+
         success: function (msg) {
           if (msg.msg == "success") {
             document.getElementById("FormSuccess").innerHTML = "Approved!";
           }
           if (msg.msg == "error") {
               console.log(msg.msg)
-              document.getElementById("FormSuccess").innerHTML = "Approve Failed!";          }
+              document.getElementById("FormSuccess").innerHTML = "Approve Failed!";
+          }
 
 
         }

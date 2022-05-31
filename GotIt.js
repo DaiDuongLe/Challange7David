@@ -194,7 +194,7 @@ function onUpload(req, res) {
 
 
                // var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '");';
-               var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded, FileName) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') +'","' + test1.name[0] + '");';
+               var querystatement = 'INSERT INTO Challenge7David (FirstName, LastName, Age, TimeUploaded, FileName, Status) VALUES("' + req.body.Firstname + '","' +  req.body.Lastname +'","' + req.body.Age+ '","' + moment(new Date()).format('YYYY-MM-DD HH:mm:ss') +'","' + test1.name[0] + '","' + "Pending..." + '");';
 
                // var teststatement = 'SELECT * FROM Study.Challenge7David"' + req.body.Firstname '"'
                // var querystatement = 'INSERT INTO Challenge7David (ID, LastName, FirstName) VALUES(ID + 1,"' + req.body.Firstname + '","';
@@ -223,18 +223,23 @@ function onUpload(req, res) {
     });
 
 }
+
+
 app.post("/approve", function (req, res) {
-    console.log(test1.name[0])
-    fs.rename("/Users/imac08/IdeaProjects/Challange7David/uploadFiles/" + test1.name[0], "/Users/imac08/IdeaProjects/Challange7David/DataDir/" + test1.name[0], function (err) {
-        console.log(err)
+    console.log(req.body.approve + "IUgesiufguse")
+    fs.rename("/Users/imac08/IdeaProjects/Challange7David/uploadFiles/" + req.body.approve, "/Users/imac08/IdeaProjects/Challange7David/DataDir/" + req.body.approve, function (err) {
         if (err)  {
             res.json({
                 msg: "error"
+
             })
+            console.log(err)
         } else {
             res.json({
                 msg: "success"
             })
+            console.log("Approved!")
+            
         }
     })
 
