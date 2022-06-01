@@ -226,7 +226,7 @@ function onUpload(req, res) {
 
 
 app.post("/approve", function (req, res) {
-    console.log(req.body.approve + "IUgesiufguse")
+    console.log(req.body.approve)
     fs.rename("/Users/imac08/IdeaProjects/Challange7David/uploadFiles/" + req.body.approve, "/Users/imac08/IdeaProjects/Challange7David/DataDir/" + req.body.approve, function (err) {
         if (err)  {
             res.json({
@@ -238,8 +238,27 @@ app.post("/approve", function (req, res) {
             res.json({
                 msg: "success"
             })
-            console.log("Approved!")
-            
+
+            var approvestatment = 'UPDATE Challenge7David SET Status = "Approved!" WHERE FileName =  "' + req.body.approve + '";';
+            con.query(approvestatment, function (err, result) {
+                if (err) {
+                    // res.json({
+                    //     msg:"Error inserting"
+                    // });
+                    console.log(err)
+                } else {
+                    // res.json({
+                    //
+                    //     msg:"success"
+                    //
+                    //
+                    //
+                    // });
+                    console.log("Approved!")
+                }
+
+            });
+
         }
     })
 
