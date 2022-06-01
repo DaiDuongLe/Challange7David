@@ -235,9 +235,7 @@ app.post("/approve", function (req, res) {
             })
             console.log(err)
         } else {
-            res.json({
-                msg: "success"
-            })
+
 
             var approvestatment = 'UPDATE Challenge7David SET Status = "Approved!" WHERE FileName =  "' + req.body.approve + '";';
             con.query(approvestatment, function (err, result) {
@@ -254,6 +252,9 @@ app.post("/approve", function (req, res) {
                     //
                     //
                     // });
+                    res.json({
+                        msg: "success"
+                    })
                     console.log("Approved!")
                 }
 
